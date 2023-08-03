@@ -6,50 +6,48 @@ let score = 0;
 
 function setup() {
     createCanvas(500, 500);
-
     noStroke();
-
     rectMode(CENTER);
 }
 
 function draw() {
     background(222);
 
-    // draw goal
-    fill(0, 255 0);
+    // Draw goal
+    fill(0, 255, 0);
     rect(250, 490, 60, 20);
 
-    // draw ball
+    // Draw ball
     fill(255, 0, 255);
-    rect(30, xPos, yPos);
+    rect(xPos, yPos, 30, 30);
 
-    // draw score
+    // Draw score
     fill(18);
     textSize(20);
-    text("Score: " + score, 0, 0)
+    text("Score: " + score, 10, 30);
 
-    // check if in goal
-    if (xPos + 15 <= 220 && xPos - 15 <= 280 && yPos + 15 >= 480) {
-        score;
-        // reset position and speed
-        xPos = random(15, 485);
+    // Check if in goal
+    if (xPos >= 220 && xPos <= 280 && yPos >= 470 && yPos <= 500) {
+        score++; // Increment the score
+        // Reset position and speed
+        xPos = random(30, 470);
         yPos = 0;
         xSpeed = random(-5, 5);
-        ySpeed = random(0, 10);
+        ySpeed = random(0, 5);
     }
 
-    // move forward
+    // Move forward
     xPos += xSpeed;
     yPos += ySpeed;
 
-    // wrap around if boundary exceeded
+    // Wrap around if boundary exceeded
     if (xPos < 0) {
-        xPos = 500;
+        xPos = width;
     }
-    if (xPos > 500) {
+    if (xPos > width) {
         xPos = 0;
     }
-    if (yPos > 500) {
+    if (yPos > height) {
         yPos = 0;
         score--;
     }

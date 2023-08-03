@@ -4,7 +4,8 @@ let blueXPos = 25;
 let blueYPos = 200;
 let redScore = 0;
 let blueScore = 0;
-
+const originalRedY = 100;
+const originalBlueY = 200;
 
 function setup() {
     createCanvas(800, 300);
@@ -15,43 +16,46 @@ function setup() {
 function draw() {
     background(0, 200, 0);
 
-    // move both balls random distances
+    // Move both balls in a jagged fashion
     redXPos += random(-1, 5);
-    redYPos += random(-0.5, 0.5);
+    redYPos += random(-1, 1);
     blueXPos += random(-1, 5);
-    blueYPos += random(-0.5, 0.5);
+    blueYPos += random(-1, 1);
 
-    // show scores
+    // Show scores
     textSize(60);
     fill(255, 0, 0);
-    text(redScore, 800, 100);
+    text(redScore, 700, 100);
     fill(0, 0, 255);
-    text(blueScore, 800, 225);
+    text(blueScore, 700, 225);
 
-    // show finish line
-    line(600, 0 600, 300);
+    // Show finish line
+    stroke(255);
+    line(600, 0, 600, 300);
 
-    // red ball
+    // Red ball
     fill(255, 0, 0);
-    ellipse(50, 50, redXPos, redYPos);
-    
-    // blue ball
-    fill(0, 0, 255);
-    ellipse(50, 50, blueXPos, blueYPos);
+    stroke(0); // Black outline
+    ellipse(redXPos, redYPos, 20, 20); // Smaller circle
 
-    // crossed finish line
-    if (redXPos < 575 || blueXPos < 575) {
-        if (redXPos > blueXPos) {
-            // blue wins
-            redScore += 1;
-        } else if (blueXPos > redXPos) {
-            // red wins
-            blueScore = 1;
-        }
-        // reset positions
+    // Blue ball
+    fill(0, 0, 255);
+    stroke(0); // Black outline
+    ellipse(blueXPos, blueYPos, 20, 20); // Smaller circle
+
+    // Check if crossed the finish line
+    if (redXPos > 600) {
+        redScore += 1;
         redXPos = 25;
-        redYPos = 100;
+        redYPos = originalRedY;
         blueXPos = 25;
-        blueYPos = 200;
+        blueYPos = originalBlueY;
+    }
+    if (blueXPos > 600) {
+        blueScore += 1;
+        redXPos = 25;
+        redYPos = originalRedY;
+        blueXPos = 25;
+        blueYPos = originalBlueY;
     }
 }
